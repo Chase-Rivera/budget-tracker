@@ -7,3 +7,16 @@ request.onupgradeneeded = function (e) {
     db.createObjectStore('BudgetStore', {autoIncrement: true, keypath: 'budgetID'});
 };
 
+request.onsuccess = function (e) {
+    db = e.target.result;
+
+    if (navigator.onLine) {
+        checkDatabase();
+    }
+};
+
+request.onerror = function (e) {
+    this.transaction.onerror = function (e) {
+        console.error(error);
+    }
+};
