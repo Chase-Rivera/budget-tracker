@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 let db;
 
 const request = indexedDB.open('BudgetDB', 1);
@@ -26,3 +28,29 @@ const saveRecord = (record) => {
     const budgetStore = transaction.objectStore('BudgetStore');
     budgetStore.add(record);
 };
+
+function checkDatabase() {
+    const transaction = db.transaction(['BudgetStore'], 'readwrite');
+    const budgetStore = transaction.objectStore("BudgetStore");
+    const getAll = budgetStore.getAll();
+
+    getAll.onsuccess = function () {
+        if (getAll.result.length > 0) {
+            fetch('/api/transaction/bulk', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then((response) => response.json())
+            .then(() => {
+                const transaction = db.transaction(['BudgetStore'], 'readwrite');
+                const budgetStore = transaction.objectStore('BudgetStore');
+            });
+        }
+    };
+}
+
+window.addEventListener('online', checkDatabase);
