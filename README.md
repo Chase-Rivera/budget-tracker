@@ -1,2 +1,2 @@
 # budget-tracker
-This a budget tracking app that will work online and offline.
+This is a budget tracking app that will work online and offline.
