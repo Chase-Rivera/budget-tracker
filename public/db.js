@@ -20,3 +20,9 @@ request.onerror = function (e) {
         console.error(error);
     }
 };
+
+const saveRecord = (record) => {
+    const transaction = db.transaction(['budgetStore'], 'readwrite');
+    const budgetStore = transaction.objectStore('BudgetStore');
+    budgetStore.add(record);
+};
