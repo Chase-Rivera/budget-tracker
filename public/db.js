@@ -22,7 +22,7 @@ request.onerror = function (e) {
 };
 
 function saveRecord(record) {
-    const transaction = db.transaction(['budgetStore'], 'readwrite');
+    const transaction = db.transaction(['BudgetStore'], 'readwrite');
     const budgetStore = transaction.objectStore('BudgetStore');
     budgetStore.add(record);
 };
