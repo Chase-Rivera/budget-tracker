@@ -3,7 +3,6 @@ const FILES_TO_CACHE = [
     '/index.html',
     '/db.js',
     '/index.js',
-    '/db.js',
     '/styles.css'
 ];
 
@@ -34,7 +33,7 @@ self.addEventListener('activate', (event) => {
                 })
             );
         })
-        .then(() => self.ClientRectList.claim())
+        .then(() => self.clients.claim())
     );
 });
 

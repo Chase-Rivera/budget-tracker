@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 let db;
 
 const request = indexedDB.open('BudgetDB', 1);
@@ -23,7 +21,7 @@ request.onerror = function (e) {
     }
 };
 
-const saveRecord = (record) => {
+function saveRecord(record) {
     const transaction = db.transaction(['budgetStore'], 'readwrite');
     const budgetStore = transaction.objectStore('BudgetStore');
     budgetStore.add(record);
